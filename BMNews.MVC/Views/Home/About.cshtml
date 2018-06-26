@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "Sobre";
+}
+<div class="container">
+    <div class="col-lg-12">
+        <h1 class="page-header">
+            Sobre
+        </h1>
+        <ol class="breadcrumb">
+            <li>
+                @Html.ActionLink("Página Inicial", "Index", "Home")
+
+            </li>
+            <li class="active">Sobre</li>
+        </ol>
+        <div class="row">
+            <div class="col-md-6">
+                <img src="~/Images/bmnews-banner.jpg" class="img-responsive text-center" style=" margin: 0 auto;">
+            </div>
+            <div class="col-md-6">
+                <h2 class="text-center">Bem Vindo ao BMNews!</h2>
+                <br />
+                <br />
+                <p class="text-justify textxMedium lead" style="text-indent: 2em;">
+                    Criado como parte do processo seletivo da AM4 BM, tendo como objetivo cumprir os requisitos especificados na imagem abaixo.
+
+                </p>
+                <img src="~/Images/bmnews-requisitos.JPG" class="img-responsive text-center" style=" margin: 0 auto;">
+            </div>
+        </div>
+    </div>
+</div>

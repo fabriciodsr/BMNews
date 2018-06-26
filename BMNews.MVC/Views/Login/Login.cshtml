@@ -1,0 +1,115 @@
+﻿@model IEnumerable<BMNews.MVC.ViewModels.UsuarioViewModel>
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Login
+            </h1>
+            <ol class="breadcrumb">
+                <li>
+                    @Html.ActionLink("Home", "Index", "Home")
+                </li>
+                <li class="active">Login</li>
+            </ol>
+            <form enctype="multipart/form-data" id="formulario_login" action="@Url.Action("Login", "Login")" method="POST">
+                <div class="col-lg-4">
+                    <br />
+                    <!--Elemento que mostra a mensagem de erro retornada pelo servidor-->
+                    <div id="mensagem_erro" style="color: red"></div>
+                    <!--Login-->
+                    <input type="text" name="login" class="form-control" placeholder="Login" id="input_login" autofocus>
+                    <br />
+                    <!--Senha-->
+                    <input type="password" name="senha" class="form-control" id="input_senha" placeholder="Senha">
+                    <br />
+                    <span class="clearfix"></span>
+                    <div class="login-footer">
+                        <div align="center" class="row">
+                            <div>
+                                <!--Botão de Login-->
+                                <input type="button" class="btn btn-danger" value="Login" id="btn_login"/>
+                                <!--Link para a página de cadastro de usuário-->
+                                <input type="button" class="btn" value="Cadastrar" onclick="window.location.href='@Url.Action("Create", "Home")';"/>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    //função iniciada com o clique no botão de Login
+    $('#btn_login')
+        .click(function () {
+            //guarda em variáveis o login e a senha digitados
+            var _login = document.getElementById("input_login").value;
+            var _senha = document.getElementById("input_senha").value;
+            //inicia a requisição AJAX
+            $.ajax({
+                //informa que a requisição é do tipo POST
+                type: 'POST',
+                //Informa o caminho do método a ser chamado
+                url: '/Login/LogarAJAX',
+                //repassa ao servidor os dados de login e senha
+                data: { login: _login, senha: _senha },
+                success: function (data) {
+                    //caso o retorno da requisição seja a string "logar",
+                    //os dados do formulário são submetidos ao banco
+                    if (data === 'logar') {
+                        document.getElementById("formulario_login").submit();
+                    } else {
+                        //limpa o conteúdo da div
+                        $('#mensagem_erro').html('');
+                        //inclui tempo de espera para que a mensagem não apareça instantaneamente
+                        setTimeout(function () {
+                            //exibe a mensagem de erro na div
+                            $('#mensagem_erro').html(data);
+                            //coloca o cursor em Login
+                            $('#input_login').focus();
+                        }, 500);
+                    }
+
+                },
+                error: function (data) {
+                    $('#mensagem_erro').html("<label>Falha ao buscar dados</label>");
+
+                }
+            });
+        });
+    $('#formulario_login')
+        .keypress(function (e) {
+            if (e.which == 13) {
+                $('#btn_login').click();
+            }
+        });
+
+    $(document).keypress(function (e) {
+        if (e.keyCode == 27) {
+            $("#Login").fadeOut(500);
+            //or
+            //window.close();
+        }
+    });
+
+    $('#formulario_login')
+        .keypress(function (e) {
+            if (e.which == 27) {
+                $('#Login').fadeOut(500);
+            }
+        });
+
+    $('#login')
+        .addClass('in')
+        .attr('aria-hidden', false)
+        .focus('#input_login');
+
+
+</script>

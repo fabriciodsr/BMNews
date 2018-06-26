@@ -1,0 +1,120 @@
+﻿<!-- BEGIN # MODAL LOGIN -->
+<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" align="center">
+                <img class="img-circle" id="img_logo" src="~/Images/logobmnews_59x33.jpg">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                </button>
+            </div>
+                
+            <!-- Begin # DIV Form -->
+            <div align="center" id="div-forms">
+                
+                <!-- Begin # Login Form -->
+                <form id="formulario_login" enctype="multipart/form-data" action="@Url.Action("Login", "Login")" method="POST">
+                    <div class="main">
+                        <br />
+                        <!--Elemento que mostra a mensagem de erro retornada pelo servidor-->
+                        <div id="mensagem_erro" style="color: red"></div>
+                        <!--Login-->
+                        <input type="text" name="login" class="form-control" placeholder="Login" id="input_login" autofocus>
+                        <br/>
+                        <!--Senha-->
+                        <input type="password" name="senha" class="form-control" id="input_senha" placeholder="Senha">
+                        <span class="clearfix"></span>
+                        <br/>
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <div align="center" class="row">
+                            <div>
+                                <!--Botão de Login-->
+                                <input type="button" class="btn btn-danger" value="Login" id="btn_login"/>
+                                <!--Link para a página de cadastro de usuário-->
+                                <input type="button" class="btn" value="Cadastrar" onclick="window.location.href='@Url.Action("Create", "Home")';"/>
+                            </div> 
+                        </div>
+                    </div>
+                </form>
+                <!-- End # Login Form -->
+                </div>
+            <!-- End # DIV Form -->
+                
+        </div>
+    </div>
+</div>
+<!-- END # MODAL LOGIN -->
+
+
+@*<link rel="stylesheet" type="text/css" href="~/Content/modal.css">*@
+
+<script>
+    //função iniciada com o clique no botão de Login
+    //função iniciada com o clique no botão de Login
+    $('#btn_login')
+        .click(function () {
+            //guarda em variáveis o login e a senha digitados
+            var _login = document.getElementById("input_login").value;
+            var _senha = document.getElementById("input_senha").value;
+            //inicia a requisição AJAX
+            $.ajax({
+                //informa que a requisição é do tipo POST
+                type: 'POST',
+                //Informa o caminho do método a ser chamado
+                url: '/Login/LogarAJAX',
+                //repassa ao servidor os dados de login e senha
+                data: { login: _login, senha: _senha },
+                success: function (data) {
+                    //caso o retorno da requisição seja a string "logar",
+                    //os dados do formulário são submetidos a controller
+                    if (data === 'logar') {
+                        document.getElementById("formulario_login").submit();
+                    } else {
+                        //limpa o conteúdo da div
+                        $('#mensagem_erro').html('');
+                        //inclui tempo de espera para que a mensagem não apareça instantaneamente
+                        setTimeout(function () {
+                            //exibe a mensagem de erro na div
+                            $('#mensagem_erro').html(data);
+                            //coloca o cursor em Login
+                            $('#input_login').focus();
+                        }, 500);
+                    }
+
+                },
+                error: function (data) {
+                    $('#mensagem_erro').html("<label>teste</label>");
+
+                }
+            });
+        });
+
+    $('#formulario_login')
+        .keypress(function (e) {
+            if (e.which == 13) {
+                $('#btn_login').click();
+            }
+        });
+
+    $(document).keypress(function (e) {
+        if (e.keyCode == 27) {
+            $("#Login").fadeOut(500);
+            //or
+            //window.close();
+        }
+    });
+
+    $('#formulario_login')
+        .keypress(function (e) {
+            if (e.which == 27) {
+                $('#Login').fadeOut(500);
+            }
+        });
+
+    $('#login')
+        .addClass('in')
+        .attr('aria-hidden', false)
+        .focus('#input_login');
+</script>

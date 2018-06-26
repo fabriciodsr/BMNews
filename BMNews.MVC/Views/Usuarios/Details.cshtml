@@ -1,0 +1,93 @@
+﻿@model BMNews.MVC.ViewModels.UsuarioViewModel
+
+@{
+    ViewBag.Title = "Informações do Usuário";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3 col-sm-4 sidebar">
+            @Html.Partial("_MenuUsuario")
+        </div>
+
+        <div class="col-md-9 col-sm-8 ">
+            <h1 class="page-header">
+                Painel do Usuário
+                <small> / Informações do Usuário</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li>
+                    @Html.ActionLink("Painel do Usuário", "Index", "Usuarios")
+
+                </li>
+                <li>
+                    @Html.ActionLink("Usuário", "List", "Usuarios")
+
+                </li>
+                <li class="active">Informações do Usuário</li>
+            </ol>
+
+            <div>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Nome)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Nome)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Sobrenome)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Sobrenome)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Login)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Login)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Senha)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Senha)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Email)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Ativo)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Ativo)
+                    </dd>
+
+                </dl>
+                <div class="btn btn-default">
+                    @Html.ActionLink("Editar Usuário", "Edit", new { id = Model.UsuarioId })
+                </div>
+                <div class="btn btn-default">
+                    @Html.ActionLink("Voltar para lista", "List")
+                </div>
+            </div>
+            
+        </div>
+
+    </div>
+</div>

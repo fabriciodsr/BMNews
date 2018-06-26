@@ -1,0 +1,45 @@
+﻿
+<div class="panel-group nav nav-stacked nav-pills" id="listaadmin">
+
+    <div class="fundo-menu-admin">
+        <a data-toggle="collapse" data-parent="#listaadmin" href="#perfil">
+            <div class="panel-heading">
+                <h4 class="modal-title text-info  link-menu-admin zoom-font">
+                    <span class="glyphicon glyphicon-user"> </span>
+                    PERFIL
+                </h4>
+            </div>
+        </a>
+
+        <div id="perfil" class="panel-collapse collapse">
+            <ul id="listaadmin1" class="nav nav-stacked  nav-pills">
+                <li>
+                    @Html.ActionLink("Meu Perfil", "List", "Usuarios", null, new { @id = "link-menu" })
+                </li>
+           </ul>
+        </div>
+    </div>
+
+
+    <div class="fundo-menu-admin">
+        <a data-toggle="collapse" data-parent="#listaadmin" href="#noticias">
+            <div class="panel-heading">
+                <h4 class="modal-title text-info  link-menu-admin zoom-font">
+                    <span class="glyphicon glyphicon-bullhorn"> </span>
+                    NOTÍCIAS
+                </h4>
+            </div>
+        </a>
+
+        <div id="noticias" class="panel-collapse collapse">
+            <ul id="listaadmin2" class="nav nav-stacked  nav-pills">
+                <li>
+                    @Html.ActionLink("Minhas Notícias", "MinhasNoticias", "Noticias", null, new { @id = "link-menu" })
+                </li>
+                <li>
+                    @Html.ActionLink("Nova Notícia", "CriarNoticia", "Noticias", null, new { @id = "link-menu" })
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

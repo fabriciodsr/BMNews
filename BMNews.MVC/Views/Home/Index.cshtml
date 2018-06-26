@@ -1,0 +1,166 @@
+﻿@model IEnumerable<BMNews.MVC.ViewModels.NoticiaViewModel>
+
+@{
+    ViewBag.Title = "BMNews - O seu portal de notícias!";
+}
+
+
+    @*<div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h2>Notícias Recentes</h2>
+                <hr />
+            </div>
+        </div>
+    </div>
+    @foreach (var u in Model)
+    {
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h3>@Html.ActionLink(Convert.ToString(@Html.DisplayFor(modelItem => u.Titulo)), "Details", "Noticias", new { id = u.NoticiaId }, null)</h3>
+                <h5><span class="glyphicon glyphicon-time"></span> Postado por @Html.DisplayFor(modelItem => u.Usuario.Nome), @Html.DisplayFor(modelItem => u.DataCadastro)</h5>
+                <h5><span class="label label-danger">@Html.DisplayFor(modelItem => u.PalavraChave)</span></h5><br>
+                <p>@Html.Raw(Server.HtmlDecode(Convert.ToString(@Html.DisplayFor(modelItem => u.Conteudo))))</p>
+                <br>
+                <hr />
+            </div>
+    }*@
+
+<body>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            @*<div class="col-lg-12">
+                <img src="~/Images/home-bg.jpg" class="img-responsive" />
+            </div>*@
+            <div class="col-lg-8">
+                <div class="site-heading">
+                    <h1>Notícias Recentes</h1>
+                    <hr class="small">
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="container">
+
+<div class="row">
+    <div class="col-lg-8">
+        @foreach (var u in Model)
+        {
+            if (u.Disponivel)
+            {
+               
+                <h1>@Html.ActionLink(Convert.ToString(@Html.DisplayFor(modelItem => u.Titulo)), "Detalhes", "Noticias", new { id = u.NoticiaId }, null)</h1>
+                <p class="lead"><i class="fa fa-user"></i> por @Html.DisplayFor(modelItem => u.Usuario.Nome) 
+                </p>
+                <hr>
+                <p><i class="fa fa-calendar"></i> Postado em @Html.DisplayFor(modelItem => u.DataCadastro)</p>
+                <p><i class="fa fa-tags"></i> Tags: <a href=""><span class="badge badge-info">@Html.DisplayFor(modelItem => u.PalavraChave)</span></a></p>
+            	
+                <hr>
+            @*<img src="http://placehold.it/900x300" class="img-responsive">
+            <hr>*@
+                 @*<p class="lead">@Html.Raw(Server.HtmlDecode(Convert.ToString(@Html.DisplayFor(modelItem => u.Conteudo))))</p>
+                 <br/>
+                 <hr>*@  
+            }
+        }
+    </div>
+
+    <div class="col-lg-4">
+        
+        <!-- Pesquisa por tags -->
+
+        @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+        {
+            <div class="well">
+                <h4><i class="fa fa-search"></i> Pesquisa...</h4>
+                <div class="input-group">
+                    <input type="text" name="pesquisa" class="form-control">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        }
+        
+        <!-- Pesquisa por Data -->
+        @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+        {
+            <div class="well">
+                <div class="col-md-8 input-group">
+                    <h4><i class="fa fa-calendar"></i> De</h4><input type="datetime-local" name="startdate" class="form-control">
+                    <br><br/>
+                    <h4><i class="fa fa-calendar"></i> Até</h4><input type="datetime-local" name="enddate" class="form-control">
+                    <br><br/>
+                    <button class="btn btn-default" type="submit"><i class="fa fa-search"></i> Pesquisar</button>
+                </div>
+            </div>
+        }
+
+        <!-- /well -->
+        <div class="well">
+            <h4><i class="fa fa-tags"></i>Tags Populares:</h4>
+            <div class="row">
+                <div class="col-lg-6">
+                    <ul class="list-unstyled">
+                        @foreach (var u in Model)
+                        {
+                            if (u.Disponivel)
+                            {
+                                <li><a href=""><span class="badge badge-info">@Html.DisplayFor(modelItem => u.PalavraChave)</span></a>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- /well -->
+        <div class="well">
+            <h4><i class="fa fa-thumbs-o-up"></i> Nos acompanhe!</h4>
+            <ul>
+                <p><a title="Facebook" href=""><span class="fa-stack fa-lg"><i class="fa fa-square-o fa-stack-2x"></i><i class="fa fa-facebook fa-stack-1x"></i></span></a> <a title="Twitter" href=""><span class="fa-stack fa-lg"><i class="fa fa-square-o fa-stack-2x"></i><i class="fa fa-twitter fa-stack-1x"></i></span></a> <a title="Google+" href=""><span class="fa-stack fa-lg"><i class="fa fa-square-o fa-stack-2x"></i><i class="fa fa-google-plus fa-stack-1x"></i></span></a> <a title="Linkedin" href=""><span class="fa-stack fa-lg"><i class="fa fa-square-o fa-stack-2x"></i><i class="fa fa-linkedin fa-stack-1x"></i></span></a>
+                </p>
+            </ul>
+        </div>
+        <!-- /well -->
+        <!-- /well -->
+        <div class="well">
+            <h4><i class="fa fa-fire"></i> Notícias Populares:</h4>
+            <ul>
+                @foreach (var u in Model)
+                {
+                    if (u.Disponivel)
+                    {
+                        <li>@Html.ActionLink(Convert.ToString(@Html.DisplayFor(modelItem => u.Titulo)), "Detalhes", "Noticias", new {id = u.NoticiaId}, null)</li>
+                    }
+                }
+            </ul>
+        </div>
+        <!-- /well -->
+    </div>
+</div>
+</div>
+<!-- /.container -->
+</body>
+    
+<link href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
+@*<script type='text/javascript'>
+    $(function(){
+        $('.date-picker').datepicker({
+            dateFormat: 'dd/mm/yy 00:00:00',
+            dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
+            dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+            dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+            monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+            monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+            nextText: 'Próximo',
+            prevText: 'Anterior'
+        })})
+</script>*@

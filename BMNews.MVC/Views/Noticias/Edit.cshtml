@@ -1,0 +1,132 @@
+﻿@model BMNews.MVC.ViewModels.NoticiaViewModel
+
+@{
+    ViewBag.Title = "Editar Notícia";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3 col-sm-4 sidebar">
+            @Html.Partial("_MenuAdmin")
+        </div>
+
+        <div class="col-md-9 col-sm-8 ">
+            <h1 class="page-header">
+                Administração do Site
+                <small> / Editar Notícia</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li>
+                    @Html.ActionLink("Painel Administrador", "Index", "Usuarios")
+
+                </li>
+                <li>
+                    @Html.ActionLink("Notícias", "List", "Noticias")
+
+                </li>
+                <li class="active">Editar Notícia</li>
+            </ol>
+
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    @*<h4>NoticiaViewModel</h4>*@
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.NoticiaId)
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Titulo, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Titulo, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Titulo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Conteudo, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @*@Html.EditorFor(model => model.Conteudo, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Conteudo, "", new { @class = "text-danger" })*@
+                            @*<textarea name="Conteudo" rows="@Html.Raw(Server.HtmlDecode(Convert.ToString(Html.DisplayFor(model => model.Conteudo))))"></textarea>*@
+                            @Html.TextArea(name: "Conteudo")
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.PalavraChave, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.PalavraChave, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.PalavraChave, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Disponivel, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <div class="checkbox">
+                                @*@@Html.EditorFor(model => model.Disponivel)
+                                @Html.ValidationMessageFor(model => model.Disponivel, "", new { @class = "text-danger" })*@
+                                @Html.DropDownListFor(model => model.Disponivel, new List<SelectListItem>() { new SelectListItem() { Text = "Sim", Value = "True" }, new SelectListItem() { Text = "Não", Value = "False" } }, new { @class = "form-control", @Style = "width: 80px" })
+                                @Html.ValidationMessageFor(model => model.Disponivel, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UsuarioId, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @*@Html.DropDownList("UsuarioId", ViewBag.UsuarioId as SelectList, String.Empty, new { @class = "form-control", @Style = "width: 150px", @id = "UsuarioId" })*@
+                            @Html.DropDownList("UsuarioId", String.Empty)
+                            @Html.ValidationMessageFor(model => model.UsuarioId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Salvar" class="btn btn-default" />
+                            <div class="btn btn-default">
+                                @Html.ActionLink("Voltar para lista", "List")
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+        $(function () {
+            $('#Conteudo').froalaEditor({
+                buttons: ["bold", "italic", "underline", "strikeThrough", "fontFamily",
+                    "fontSize", "color", "formatBlock", "align", "insertOrderedList",
+                    "insertUnorderedList", "outdent", "indent", "selectAll", "createLink",
+                    "insertImage", "undo", "redo", "html", "save", "inserthorizontalrule"],
+                inlineMode: false,
+                inverseSkin: true,
+                preloaderSrc: '@Url.Content("~/Content/img/preloader.gif")',
+                allowedImageTypes: ["jpeg", "jpg", "png"],
+                height: 300,
+                language: "ptbr",
+                direction: "ltr",
+                fontList: ["Tahoma, Geneva", "Arial, Helvetica", "Impact, Charcoal"],
+                autosave: true,
+                autosaveInterval: 2500,
+                saveURL: '@Url.Action("FroalaAutoSave", "Noticias")',
+                saveParams: { postId: "123" },
+                spellcheck: true,
+                plainPaste: true,
+                imageButtons: ["removeImage", "replaceImage", "linkImage"],
+                borderColor: '#00008b',
+                imageUploadURL: '@Url.Action("FroalaUploadImage", "Noticias")',
+                imageParams: { postId: "123" },
+                enableScript: false
+            });
+        });
+</script>
+}

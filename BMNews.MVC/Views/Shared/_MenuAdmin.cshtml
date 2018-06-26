@@ -1,0 +1,67 @@
+﻿
+<div class="panel-group nav nav-stacked nav-pills" id="listaadmin">
+
+    <div class="fundo-menu-admin">
+        <a data-toggle="collapse" data-parent="#listaadmin" href="#xxt">
+            <div class="panel-heading">
+                <h4 class="modal-title text-info  link-menu-admin zoom-font">
+                    <span class="glyphicon glyphicon-user"> </span>
+                    USUÁRIOS
+                </h4>
+            </div>
+        </a>
+
+        <div id="xxt" class="panel-collapse collapse">
+            <ul id="listaadmin1" class="nav nav-stacked  nav-pills">
+                <li>
+                    @Html.ActionLink("Listar Usuários", "List", "Administradores", null, new { @id = "link-menu" })
+                </li>
+                <li>
+                    @Html.ActionLink("Novo Usuário", "Create", "Administradores", null, new { @id = "link-menu" })
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="fundo-menu-admin">
+        <a data-toggle="collapse" data-parent="#listaadmin" href="#noticias">
+            <div class="panel-heading">
+                <h4 class="modal-title text-info  link-menu-admin zoom-font">
+                    <span class="glyphicon glyphicon-bullhorn"> </span>
+                    NOTÍCIAS
+                </h4>
+            </div>
+        </a>
+
+        <div id="noticias" class="panel-collapse collapse">
+            <ul id="listaadmin2" class="nav nav-stacked  nav-pills">
+                <li>
+                    @Html.ActionLink("Listar Notícias", "List", "Noticias", null, new { @id = "link-menu" })
+                </li>
+                <li>
+                    @Html.ActionLink("Nova Notícia", "Create", "Noticias", null, new { @id = "link-menu" })
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="fundo-menu-admin">
+        <a data-toggle="collapse" data-parent="#listaadmin" href="#estatisticas">
+            <div class="panel-heading">
+                <h4 class="modal-title text-info link-menu-admin zoom-font">
+                    <i class="glyphicon glyphicon-eye-open"></i>
+                    INFORMAÇÕES
+                </h4>
+            </div>
+        </a>
+    </div>
+    
+    <div id="estatisticas" class="panel-collapse collapse">
+        <ul id="listaadmin3" class="nav nav-stacked  nav-pills">
+            <li>
+                @Html.ActionLink("Estatísticas", "Index", "Administradores", null, new { @id = "link-menu" })
+            </li>
+        </ul>
+    </div>
+</div>

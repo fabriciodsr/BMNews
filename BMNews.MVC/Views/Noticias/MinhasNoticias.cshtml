@@ -1,0 +1,80 @@
+﻿@model IEnumerable<BMNews.MVC.ViewModels.NoticiaViewModel>
+
+@{
+    ViewBag.Title = "Minhas Notícias";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3 col-sm-4 sidebar">
+            @Html.Partial("_MenuUsuario")
+        </div>
+
+        <div class="col-md-9 col-sm-8 ">
+            <h1 class="page-header">
+                Painel do Usuário
+                <small> / Minhas Notícias</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li>
+                    @Html.ActionLink("Painel do Usuário", "Index", "Usuarios")
+
+                </li>
+                <li class="active">Minhas Notícias</li>
+            </ol>
+
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Titulo)
+                    </th>
+                    @*<th>
+                        @Html.DisplayNameFor(model => model.Conteudo)
+                    </th>*@
+                    <th>
+                        @Html.DisplayNameFor(model => model.PalavraChave)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Disponivel)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UsuarioId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DataCadastro)
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Titulo)
+                        </td>
+                        @*<td>
+                            @Html.Raw(Server.HtmlDecode(Convert.ToString(@Html.DisplayFor(modelItem => item.Conteudo))))
+                        </td>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PalavraChave)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Disponivel)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Usuario.Nome)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DataCadastro)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Editar", "EditarNoticia", new { id = item.NoticiaId }) |
+                            @Html.ActionLink("Deletar", "DeletarNoticia", new { id = item.NoticiaId })
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+</div>
